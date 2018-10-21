@@ -14,11 +14,12 @@ public class BalloonSpawner : MonoBehaviour {
         Invoke("SpawnBalloon", maxSpawnRateInSeconds);
 
         //increase spawn rate every 5 seconds
-        InvokeRepeating("IncreaseSpawnRate", 1f, 5f);
+        InvokeRepeating("IncreaseSpawnRate", 1f, 15f);
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		
 	}
 
@@ -39,24 +40,20 @@ public class BalloonSpawner : MonoBehaviour {
         float SpawnInSeconds;
 
         //pick a number between 1 and maxSpawnRateInSeconds and spawn 
-        if (maxSpawnRateInSeconds > 1f)
-        {
-            SpawnInSeconds = Random.Range(1f, maxSpawnRateInSeconds);
-        }
-        else
-            SpawnInSeconds = 1f;
+        SpawnInSeconds = Random.Range(1f, maxSpawnRateInSeconds);       
         Invoke("SpawnBalloon", SpawnInSeconds);
     }
 
     //function to increase the difficulty of the game
     void IncreaseSpawnRate ()
     {
-        if (maxSpawnRateInSeconds > 1f)
-
-            maxSpawnRateInSeconds--;
-
-        if (maxSpawnRateInSeconds == 1f)
-
+        maxSpawnRateInSeconds--;
+        
+        //limit on the difficultiness
+        if (maxSpawnRateInSeconds == 0f)
+        {
             CancelInvoke("IncreaseSpawnRate");
+        }
+          
     }
 }
